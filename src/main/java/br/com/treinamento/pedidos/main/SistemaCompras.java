@@ -22,10 +22,18 @@ public class SistemaCompras {
 			
 			MercadoService.montarMenu();
 			
-			System.out.print("Informe uma opção:");
-			Integer opcao = scanner.nextInt();
-			scanner.nextLine();
-			
+			System.out.print("\nInforme uma opção:");
+			//Integer opcao = null;
+			Integer opcao = 20;
+
+            try {
+                opcao = scanner.nextInt();
+            } catch (Exception e) {
+                //System.out.println("Opção inválida. Por favor, digite um número.");
+                scanner.nextLine();
+				//continue;		
+            }
+
 			switch (opcao) {
 			case 1: {
 				ClienteService.cadastrarCliente();
@@ -50,7 +58,5 @@ public class SistemaCompras {
 			
 		}
 	}
-	
-	
 
 }
