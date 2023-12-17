@@ -24,6 +24,7 @@ public class Pedido {
 	
 	public void adicionarItem(ItemPedido item) {
 		itensPedido.add(item);
+		totalPedido = totalPedido.add(item.getValorTotal());
 		
 	}
 
