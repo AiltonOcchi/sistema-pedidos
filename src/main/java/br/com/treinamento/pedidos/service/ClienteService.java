@@ -71,7 +71,9 @@ public class ClienteService {
 
 	}
 
-
+	/**
+	 * Método para buscar um cliente pelo código	 
+	 */
 	static Cliente getCliente() {
 	    
 	    Cliente clientePedido = null;

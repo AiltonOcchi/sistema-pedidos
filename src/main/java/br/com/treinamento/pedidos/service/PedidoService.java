@@ -8,6 +8,9 @@ import br.com.treinamento.pedidos.model.Produto;
 
 public class PedidoService {
 
+    /**
+     * Método para criar um pedido
+     */
     public static void criarPedido() {
         
         System.out.println("Criar Pedido");
@@ -29,6 +32,7 @@ public class PedidoService {
         System.out.print("Deseja adicionar mais itens ao pedido? (S/N)");
         String resposta = SistemaCompras.scanner.nextLine();
         
+        // repete o processo de incluir produto enquanto a resposta for S
         while (resposta.equalsIgnoreCase("S")) {            
             Produto produtoLoop = ProdutoService.getProduto();
             System.out.println("\nProduto: " + produtoLoop.getNome() + " - R$" + produtoLoop.getPreco());
@@ -39,6 +43,7 @@ public class PedidoService {
             resposta = SistemaCompras.scanner.nextLine();            
         }
         
+        // adiciona o pedido na lista de pedidos (salva o pedido)
         SistemaCompras.pedidoList.add(pedido);
 
         System.out.println("\nPedido criado com sucesso!\nValor Total: R$"+pedido.getTotalPedido());
@@ -48,6 +53,9 @@ public class PedidoService {
 
     }
 
+    /**
+     * Método para listar os pedidos cadastrados
+     */
     public static void listarPedidos() {
 
         System.out.println("--------------------------------------------------------------------");
@@ -68,6 +76,9 @@ public class PedidoService {
 
     }
 
+    /**
+     * Método para detalhar um pedido
+     */
     public static void detalharPedido() {
             
         Pedido pedido = getPedido();    
@@ -94,6 +105,10 @@ public class PedidoService {
 
     }
 
+
+    /**
+     * Método para buscar um pedido pelo número
+     */
     public static Pedido getPedido() {
         
         Pedido pedidoBusca = null;

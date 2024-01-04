@@ -46,6 +46,9 @@ public class ProdutoService {
 		SistemaCompras.scanner.nextLine();
 	}
 
+	/**
+	 * Método para listar os produtos cadastrados
+	 */
     public static void listarProdutos() {
 
 		System.out.println("--------------------------------------------------------------------");
@@ -65,6 +68,10 @@ public class ProdutoService {
 	   
 	}
 
+
+	/**
+	 * Método para obter um produto pelo código
+	 */
     static Produto getProduto() {
         
         Produto produtoPedido = null;

@@ -24,7 +24,6 @@ public class SistemaCompras {
 		while (true) {
 
 			MercadoService.montarMenu();
-
 			System.out.print("\nInforme uma opção:");
 			Integer opcao = null;
 
