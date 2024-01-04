@@ -9,11 +9,16 @@ import lombok.Setter;
 
 public class Pedido {
 	
-	public Pedido(Cliente cliente) {
-		this.cliente = cliente;
+	public Pedido(Cliente cliente) {		
+		this.numero = ++contador;
+		this.cliente = cliente;		
 	}
-
-	@Getter @Setter
+		
+	@Getter
+	private Integer numero;
+	private Integer contador = 0;
+	
+	@Getter
 	private Cliente cliente;
 	
 	@Getter @Setter

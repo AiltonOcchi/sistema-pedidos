@@ -18,7 +18,7 @@ public class MercadoService {
 		System.out.println("5 - Criar Pedido");
 		System.out.println("6 - Listar Pedidos");
 		System.out.println("7 - Detalhes do Pedido");
-		System.out.println("11 - Sair");
+		System.out.println("9 - Sair");
 	}
 
 	/**

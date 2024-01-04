@@ -9,21 +9,10 @@ public class ClienteService {
 	 * Método para cadastrar um cliente
 	 */
 	public static void cadastrarCliente() {
+		
 		System.out.println("\nCadastro de Clientes");
 		System.out.println("--------------------------------------------");
-
-		/*// Verifica se o código informado já existe de modo simples (sem laço)
-		 Integer codigo = MercadoService.getCodigo();
-		// verifica se já existe um cliente com o código informado
-		for (Cliente cliente : SistemaCompras.clienteList) {
-			if (cliente.getCodigo().equals(codigo)) {
-				System.out.println("Erro: Já existe um cliente com o código " + codigo);
-				return; 
-			}
-		}
-		*/
 		
-
 		// Verifica se o código informado já existe de modo mais elaborado (com laço)
 		boolean codigoValido = false;
 		Integer codigo = null;
@@ -55,6 +44,9 @@ public class ClienteService {
 		System.out.print("\n");
 		
 		SistemaCompras.clienteList.add(new Cliente(codigo, nome, email));
+
+		System.out.println("Cliente cadastrado com sucesso!\nPressione Enter para continuar...");
+		SistemaCompras.scanner.nextLine();
 	}
 
 	
@@ -74,9 +66,36 @@ public class ClienteService {
 	    });
 	   
 	    System.out.println("--------------------------------------------------------------------");
-		System.out.println("Pressione Enter para continuar...");
+		System.out.println("Fim da lista.\nPressione Enter para retornar...");
         SistemaCompras.scanner.nextLine();
 
+	}
+
+
+	static Cliente getCliente() {
+	    
+	    Cliente clientePedido = null;
+	    boolean clienteValido = false;
+	
+		while (!clienteValido) {
+			Integer codigoCliente = MercadoService.getCodigo("Informe o código do cliente: ");
+	
+			// verifica se existe um cliente com código informado
+			for (Cliente cliente : SistemaCompras.clienteList) {
+				if (cliente.getCodigo().equals(codigoCliente)) {
+					clientePedido = cliente;
+					break; // sai do for
+				}
+			}
+	
+			if (clientePedido!=null) {
+				clienteValido = true;
+	            
+			}else{
+	            System.out.println("Erro: Não existe um cliente com o código " + codigoCliente);
+	        }
+		}
+	    return clientePedido;
 	}
 	
 }

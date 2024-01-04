@@ -12,86 +12,40 @@ public class PedidoService {
         
         System.out.println("Criar Pedido");
         System.out.println("--------------------------------------------");
-       
-        Cliente cliente = getCliente();
+        
+        Cliente cliente = ClienteService.getCliente();
         System.out.println("Cliente: " + cliente.getNome());
         
-        Produto produto = getProduto();
-        System.out.println("Produto: " + produto.getNome());
+        Pedido pedido = new Pedido(cliente);        
         
-        Pedido pedido = new Pedido(cliente);
+        Produto produto = ProdutoService.getProduto();
+        System.out.println("Produto: " + produto.getNome() + " - R$" + produto.getPreco());
+                
         Integer quantidade = MercadoService.getNumero("Informe a quantidade: ");
 
         ItemPedido itemPedido = new ItemPedido(produto, quantidade, produto.getPreco());
         pedido.adicionarItem(itemPedido);
 
-        System.out.println("Deseja adicionar mais itens ao pedido? (S/N)");
+        System.out.print("Deseja adicionar mais itens ao pedido? (S/N)");
         String resposta = SistemaCompras.scanner.nextLine();
         
-        while (resposta.equalsIgnoreCase("S")) {
-            Produto produtoLoop = getProduto();
-            System.out.println("Produto: " + produtoLoop.getNome());
+        while (resposta.equalsIgnoreCase("S")) {            
+            Produto produtoLoop = ProdutoService.getProduto();
+            System.out.println("\nProduto: " + produtoLoop.getNome() + " - R$" + produtoLoop.getPreco());
             quantidade = MercadoService.getNumero("Informe a quantidade: ");
             itemPedido = new ItemPedido(produtoLoop, quantidade, produtoLoop.getPreco());
             pedido.adicionarItem(itemPedido);
-            System.out.println("Deseja adicionar mais itens ao pedido? (S/N)");
-            resposta = SistemaCompras.scanner.nextLine();
-            SistemaCompras.pedidoList.add(pedido);
+            System.out.print("Deseja adicionar mais itens ao pedido? (S/N)");
+            resposta = SistemaCompras.scanner.nextLine();            
         }
+        
+        SistemaCompras.pedidoList.add(pedido);
 
-        System.out.println("Pedido cadastrado com sucesso!\nPressione Enter para continuar...");
+        System.out.println("\nPedido criado com sucesso!\nValor Total: R$"+pedido.getTotalPedido());
+
+        System.out.println("\nPressione Enter para continuar...");
         SistemaCompras.scanner.nextLine();
 
-    }
-
-    private static Produto getProduto() {
-        
-        Produto produtoPedido = null;
-        boolean produtoValido = false;
-	
-		while (!produtoValido) {
-			Integer codigoProduto = MercadoService.getCodigo("Informe o código do produto: ");
-	
-			for (Produto produto : SistemaCompras.produtoList) {
-				if (produto.getCodigo().equals(codigoProduto)) {
-					produtoPedido = produto;
-					break; // sai do for
-				}
-			}
-	
-			if (produtoPedido!=null) {
-				produtoValido = true;
-			}else{
-                System.out.println("Erro: Não existe um produto com o código " + codigoProduto);
-            }
-		}
-        return produtoPedido;
-    }
-
-    private static Cliente getCliente() {
-        
-        Cliente clientePedido = null;
-        boolean clienteValido = false;
-	 
-		while (!clienteValido) {
-			Integer codigoCliente = MercadoService.getCodigo("Informe o código do cliente: ");
-	
-			// verifica se existe um cliente com código informado
-			for (Cliente cliente : SistemaCompras.clienteList) {
-				if (cliente.getCodigo().equals(codigoCliente)) {
-					clientePedido = cliente;
-					break; // sai do for
-				}
-			}
-	
-			if (clientePedido!=null) {
-				clienteValido = true;
-                
-			}else{
-                System.out.println("Erro: Não existe um cliente com o código " + codigoCliente);
-            }
-		}
-        return clientePedido;
     }
 
     public static void listarPedidos() {
@@ -109,7 +63,59 @@ public class PedidoService {
         }        
 
         System.out.println("--------------------------------------------------------------------");
+		System.out.println("Fim da lista.\nPressione Enter para retornar...");
+        SistemaCompras.scanner.nextLine();
 
+    }
+
+    public static void detalharPedido() {
+            
+        Pedido pedido = getPedido();    
+    
+        System.out.println("Pedido nº " + pedido.getNumero());
+        System.out.println("--------------------------------------------");       
+
+        System.out.println("Cliente: " + pedido.getCliente().getNome());
+        System.out.println("Valor Total: R$" + pedido.getTotalPedido());
+        System.out.println("Itens do Pedido: ");
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s", "Código", "Produto", "Valor Unit", "Qtd", "Valor Total");
+        System.out.println("\n--------------------------------------------------------------------------------------------------");
+        
+        int i = 1;
+        for(ItemPedido item : pedido.getItensPedido()){
+            System.out.printf("%-10d %-30s %-20s %-20s %-20s\n", i, item.getProduto().getNome(), item.getValorUnitario(), item.getQuantidade(), item.getValorTotal());
+            i++;
+        }        
+
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.println("Fim do pedido.\nPressione Enter para retornar...");
+        SistemaCompras.scanner.nextLine();
+
+    }
+
+    public static Pedido getPedido() {
+        
+        Pedido pedidoBusca = null;
+        boolean pedidoValido = false;
+    
+    	while (!pedidoValido) {
+    		Integer numeroPedido = MercadoService.getCodigo("Informe o número do pedido: ");
+    
+    		for (Pedido pedido : SistemaCompras.pedidoList) {
+    			if (pedido.getNumero().equals(numeroPedido)) {
+    				pedidoBusca = pedido;
+    				break; // sai do for
+    			}
+    		}
+    
+    		if (pedidoBusca!=null) {
+    			pedidoValido = true;
+    		}else{
+                System.out.println("Erro: Pedido não econtrado");
+            }
+    	}
+        return pedidoBusca;
     }
 
 }

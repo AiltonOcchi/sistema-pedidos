@@ -26,22 +26,20 @@ public class SistemaCompras {
 			MercadoService.montarMenu();
 
 			System.out.print("\nInforme uma opção:");
-			// Integer opcao = null;
-			Integer opcao = 20;
+			Integer opcao = null;
 
 			try {
 				opcao = scanner.nextInt();
 			} catch (Exception e) {
-				// System.out.println("Opção inválida. Por favor, digite um número.");
+				System.out.println("Opção inválida. Por favor, digite um número.");
 				scanner.nextLine();
-				// continue;
+				continue;
 			}
 
 			switch (opcao) {
 			case 1: {
 				ClienteService.cadastrarCliente();
-				System.out.println("Cliente cadastrado com sucesso!\nPressione Enter para continuar...");
-				scanner.nextLine();
+				
 				break;
 			}
 			case 2: {
@@ -51,26 +49,29 @@ public class SistemaCompras {
 			}
 			case 3: {
 				ProdutoService.cadastrarProduto();
-				System.out.println("Produto cadastrado com sucesso!\nPressione Enter para continuar...");
-				scanner.nextLine();
+				
 				break;
 			}
 			case 4: {
-				ProdutoService.listarClientes();
+				ProdutoService.listarProdutos();
 				scanner.nextLine();
 				break;
 			}
 			case 5: {
 				PedidoService.criarPedido();
-				//scanner.nextLine();
 				break;
 			}
 			case 6: {
 				PedidoService.listarPedidos();
-				//scanner.nextLine();
+				scanner.nextLine();
 				break;
 			}
-			case 11: {
+			case 7: {
+				PedidoService.detalharPedido();
+				scanner.nextLine();
+				break;
+			}
+			case 9: {
 				scanner.close();
 				System.out.println("Saindo do programa...");
 				System.exit(0);
