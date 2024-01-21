@@ -16,7 +16,7 @@ public class Pedido {
 		
 	@Getter
 	private Integer numero;
-	private Integer contador = 0;
+	private static Integer contador = 0;
 	
 	@Getter
 	private Cliente cliente;

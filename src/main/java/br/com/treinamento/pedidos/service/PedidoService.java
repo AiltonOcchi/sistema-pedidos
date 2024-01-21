@@ -64,10 +64,9 @@ public class PedidoService {
         System.out.printf("%-10s %-30s %-30s", "Código", "Cliente", "Valor Total");
         System.out.println("\n--------------------------------------------------------------------");
         
-        int i = 1;
+
         for(Pedido pedido : SistemaCompras.pedidoList){
-            System.out.printf("%-10d %-30s %-30s\n", i, pedido.getCliente().getNome(), pedido.getTotalPedido());
-            i++;
+            System.out.printf("%-10d %-30s %-30s\n", pedido.getNumero(), pedido.getCliente().getNome(), pedido.getTotalPedido());
         }        
 
         System.out.println("--------------------------------------------------------------------");
